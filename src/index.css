@@ -8,6 +8,9 @@ body, html {
 
 .custom-bg {
   min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,14 +18,19 @@ body, html {
 }
 
 .chat-card {
-  max-width: 950px;
-  width: 98vw;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
   background: linear-gradient(135deg, #101c2c 60%, #1a2233 100%);
-  border-radius: 24px;
-  box-shadow: 0 8px 40px #000b, 0 1.5px 8px #4e7ad233;
-  padding: 2.5rem 2.5rem 1.5rem 2.5rem;
-  border: 2.5px solid #253a5e;
-  transition: box-shadow 0.2s, border 0.2s;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 1100px) {
@@ -72,14 +80,16 @@ body, html {
 .chat-box {
   background: linear-gradient(120deg, #151e2e 60%, #232b3b 100%);
   border-radius: 18px;
-  padding: 1.3em 1.5em;
-  min-height: 340px;
-  max-height: 500px;
+  padding: 2.5em 2.5em;
+  min-height: 60vh;
+  max-height: 70vh;
+  width: 80vw;
+  max-width: 900px;
+  min-width: 280px;
   overflow-y: auto;
   margin-bottom: 1.5em;
   box-shadow: 0 2px 12px #0005;
   border: 1.5px solid #253a5e;
-  width: 90%;
   margin-left: auto;
   margin-right: auto;
   transition: box-shadow 0.2s, border 0.2s;
@@ -95,9 +105,9 @@ body, html {
 }
 
 .chat-box-wide {
-  width: 700px;
-  max-width: 96vw;
-  min-width: 320px;
+  width: 80vw;
+  max-width: 900px;
+  min-width: 280px;
   margin-left: auto;
   margin-right: auto;
 }
