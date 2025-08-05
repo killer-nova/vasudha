@@ -58,80 +58,32 @@ function App() {
     { text: 'Hi! I am your Emotional AI. How are you feeling today?', isUser: false }
   ]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [lastEmotion, setLastEmotion] = useState(null);
-  const chatRef = useRef(null);
 
-  const handleSend = async (e) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-    const userMsg = { text: input, isUser: true };
-    setMessages(msgs => [...msgs, userMsg]);
-    const emotion = detectEmotion(input);
-    setLastEmotion(emotion);
-    setInput('');
-    setLoading(true);
-    try {
-      const aiText = await fetchAIResponse(input, emotion);
-      setMessages(msgs => [...msgs, { text: aiText, isUser: false }]);
-    } catch {
-      setMessages(msgs => [...msgs, { text: 'Sorry, there was an error connecting to AI.', isUser: false }]);
-    }
-    setLoading(false);
-    setTimeout(() => {
-      if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
-    }, 100);
-  };
 
+}
+import { useEffect } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './Navbar';
+import Home from './Home';
+import Chat from './Chat';
+import About from './About';
+
+function App() {
+  useEffect(() => {
+    document.title = 'Emotional AI - Vasudha 2025';
+  }, []);
   return (
-    <div className="custom-bg">
-      <div className="chat-card">
-        <h1 className="chat-title">Emotional AI</h1>
-        <p className="chat-desc">
-          I detect your emotion, understand your tone, and respond empathetically.<br />
-          <span className="chat-highlight">Your feelings matter here.</span>
-        </p>
-        {lastEmotion && (
-          <div className="emotion-bar">
-            <span className="emotion-emoji">{emotionToEmoji(lastEmotion)}</span>
-            <span>
-              Detected emotion: <b className="emotion-label">{lastEmotion.charAt(0).toUpperCase() + lastEmotion.slice(1)}</b>
-            </span>
-          </div>
-        )}
-        <div ref={chatRef} className="chat-box chat-box-wide">
-          {messages.map((msg, i) => (
-            <div key={i} className={`chat-row ${msg.isUser ? 'chat-row-user' : 'chat-row-ai'}`}>
-              <div className={`chat-bubble ${msg.isUser ? 'chat-bubble-user' : 'chat-bubble-ai'}`}>{msg.text}</div>
-            </div>
-          ))}
-          {loading && (
-            <div className="chat-row chat-row-ai">
-              <div className="chat-bubble chat-bubble-ai">Thinking...</div>
-            </div>
-          )}
-        </div>
-        <form className="chat-input-row" onSubmit={handleSend}>
-          <input
-            type="text"
-            placeholder="Type your message..."
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            disabled={loading}
-            autoFocus
-            className="chat-input"
-          />
-          <button
-            type="submit"
-            disabled={loading || !input.trim()}
-            className="chat-send-btn"
-          >
-            Send
-          </button>
-        </form>
-      </div>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </>
   );
 }
+
 
 export default App;
